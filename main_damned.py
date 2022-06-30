@@ -1,5 +1,6 @@
 #imports
-from modules import module as md
+from modules import module_aux as ma
+from modules import module_pipe as mp
 
 API_TOKEN = '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' #API TOKEN (REMEMBER: do not push these to your repo)
 USERNAME = 'javiergispert' #USERNAME
@@ -59,11 +60,9 @@ field_name1 = ['Student Name',
                'compare',
                'Pushed at']
 
-def main():
-  
 
 if __name__ == '__main__':
-    DF_PULLS = get_pulls(BASE_URL, KEY, OWNER, REPO, PULLS, SEARCH, STATE, USERNAME, API_TOKEN, field_list1)
-    DF_STATUS = df_status(DF_PULLS, BASE_URL, KEY, OWNER, REPO, COMMITS, USERNAME, API_TOKEN, field_list2)
-    DF_CSV = create_csv(DF_STATUS, field_sort1, field_name1)
+    DF_PULLS = mp.get_pulls(BASE_URL, KEY, OWNER, REPO, PULLS, SEARCH, STATE, USERNAME, API_TOKEN, field_list1)
+    DF_STATUS = mp.df_status(DF_PULLS, BASE_URL, KEY, OWNER, REPO, COMMITS, USERNAME, API_TOKEN, field_list2)
+    DF_CSV = mp.create_csv(DF_STATUS, field_sort1, field_name1)
     DF_CSV
