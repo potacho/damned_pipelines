@@ -7,8 +7,10 @@ import json
 import math
 import os
 from dotenv import load_dotenv
+import argparse
 
 from modules import mfunctions
+from modules import argparse
 
 #Inputs
 
@@ -24,7 +26,7 @@ REPO = "dataptmad0923_labs/" #LAB_REPOSITORY
 SEARCH = 'search/issues?q=repo:'+OWNER+REPO+'+type:pr+state:{}'
 PULLS = 'pulls?page={}&per_page=100&state={}'
 COMMITS = 'pulls/{}/commits'
-STATE = 'open'
+STATE = 'closed'
 
 field_list1 = ['number',
                'title',
@@ -77,8 +79,15 @@ field_name1 = ['Student Name',
 def main():
     DF_PULLS = mfunctions.get_pulls(BASE_URL, KEY, OWNER, REPO, PULLS, SEARCH, STATE, USERNAME, API_TOKEN, field_list1)
     DF_STATUS = mfunctions.df_status(DF_PULLS, BASE_URL, KEY, OWNER, REPO, COMMITS, USERNAME, API_TOKEN, field_list2)
+    if argparse.argument_parser().lab:
+        DF_STATUS = argparse.filter_lab(DF_STATUS, argparse.argument_parser().lab)
     DF_CSV = mfunctions.create_csv(DF_STATUS, field_sort1, field_name1)
     DF_CSV
 
 if __name__ == "__main__":
     main()
+
+        
+
+    
+
